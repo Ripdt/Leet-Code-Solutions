@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="intuition">Intuition</h1>
+<p>I struggled a lot to realize I was consuming a lot of performance by processing the winner at the <code>q</code> method. You can find some examples at my <a href="github.com/Ripdt">GitHub</a>.</p>
+<h1 id="approach">Approach</h1>
+<p>Used the constructor to memorize each winner at each time registered in the election, then search the index of the approximated time to return the winner at the designated time in <code>TopVotedCandidate::q(int t)</code>.</p>
+<h1 id="code">Code</h1>
+<pre><code>
+  
+
+class TopVotedCandidate {
+
+public:
+
+TopVotedCandidate(vector&lt;int&gt;&amp; votes, vector&lt;int&gt;&amp; timesRegistered) :
+
+times(timesRegistered)
+
+{
+
+unordered_map&lt;int, int&gt; votesPerCandidate;
+
+int winner = -1;
+
+  
+
+for (int time = 0; time &lt; times.size(); time++) {
+
+votesPerCandidate[votes[time]]++;
+
+if (votesPerCandidate[votes[time]] &gt;= votesPerCandidate[winner]) {
+
+winner = votes[time];
+
+}
+
+winnersByTime.push_back(winner);
+
+}
+
+}
+
+  
+
+int q(int t) {
+
+const int index = upper_bound(times.begin(), times.end(), t) - times.begin() - 1;
+
+return winnersByTime[index];
+
+}
+
+private:
+
+vector&lt;int&gt; winnersByTime;
+
+const vector&lt;int&gt; times;
+
+};
+
+</code></pre>
+</div>
+</body>
+
+</html>
