@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="approach">Approach</h1>
+<p>To solve this, it is necessairy to keep track of the current substring being read by the loop. For that, you can use the iterator of the  <code>for</code>  and another integer variable, but I optioned to use an auxiliar string variable (<code>currentSubstring</code>) and use a  <code>ranged for</code>. IMO, it’s better for reading. I think the other option it’s memory wisier. Whatever. Continuing: whenever the solution find a character that already is in the substring, it saves the longest substring and keep the forward part of the current substring where there isn’t an invalid character. Example: “dvdf”; After found the “dv”, it’ll concat the last ‘v’ to the new substring, because the longest substring in this case it’s “vdf”; if you did not add this procedure to the algorithm, the longest substring would be “dv” or “df”, which is incorrect.</p>
+<h1 id="complexity">Complexity</h1>
+<ul>
+<li>
+<p>Time complexity:<br>
+I think we got an  <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>, guys!</p>
+</li>
+<li>
+<p>Space complexity:<br>
+Also, I think we got an  <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span>, guys!</p>
+</li>
+</ul>
+<h1 id="code">Code</h1>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>string str<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        string longestSubstring <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">,</span> currentSubstring<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> character <span class="token operator">:</span> str<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token keyword">int</span> position <span class="token operator">=</span> currentSubstring<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>character<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>position <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> currentSubstring <span class="token operator">+</span><span class="token operator">=</span> character<span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                longestSubstring <span class="token operator">=</span> currentSubstring<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> longestSubstring<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">?</span> currentSubstring <span class="token operator">:</span> longestSubstring<span class="token punctuation">;</span>
+                currentSubstring <span class="token operator">=</span> currentSubstring<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>position <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> currentSubstring<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> character<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token function">max</span><span class="token punctuation">(</span>longestSubstring<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> currentSubstring<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</div>
+</body>
+
+</html>

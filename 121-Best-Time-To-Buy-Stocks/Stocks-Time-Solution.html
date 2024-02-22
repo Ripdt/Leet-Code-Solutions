@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="approach">Approach</h1>
+<p>Reading the question, I figured out that keep track of the buying price would be needed to solve the problem, aswell of the best sell price, but, mistakenly, thought it would be necessairy to memorize the sell price, which cost me some development time.</p>
+<h1 id="complexity">Complexity</h1>
+<ul>
+<li>
+<p>Time complexity:<br>
+O(n)O(n)O(n);</p>
+</li>
+<li>
+<p>Space complexity:<br>
+O(n)O(n)O(n)</p>
+</li>
+</ul>
+<h1 id="code">Code</h1>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">maxProfit</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span> prices<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> buyPrice <span class="token operator">=</span> prices<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> bestSell <span class="token operator">=</span> <span class="token number">0</span> <span class="token operator">-</span> buyPrice<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span> price <span class="token operator">:</span> prices<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>buyPrice <span class="token operator">&gt;</span> price<span class="token punctuation">)</span> buyPrice <span class="token operator">=</span> price<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>price <span class="token operator">-</span> buyPrice <span class="token operator">&gt;=</span> bestSell<span class="token punctuation">)</span> bestSell <span class="token operator">=</span> price <span class="token operator">-</span> buyPrice<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> bestSell <span class="token operator">&gt;=</span> <span class="token number">0</span> <span class="token operator">?</span> bestSell <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</div>
+</body>
+
+</html>
