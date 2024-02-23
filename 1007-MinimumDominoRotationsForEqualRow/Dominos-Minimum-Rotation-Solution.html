@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="approach">Approach</h1>
+<p>The algorithm starts by iterating through each number from 1 to 6, representing the possible values on the dominoes. For each number, it counts the appearances of that number in both the tops and bottoms of the dominoes. If the sum of appearances of a particular number in both tops and bottoms is equal to the total number of dominoes, it means that it’s possible to rotate some dominoes such that all tops have the same number or all bottoms have the same number. This is because if a number appears in one side (top or bottom) and not the other, it implies a valid swap can be performed to make them all equal.</p>
+<h1 id="complexity">Complexity</h1>
+<ul>
+<li>Time complexity: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>∗</mo><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">2*O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span></li>
+</ul>
+<h1 id="note">Note</h1>
+<p>The method <code>Solution::numberHasValidQuantityOfAppearences</code> can be used to count the appearences of the bottom and top extremities at the same time, which will drop the time complexity by half. I chose not to because I think this way is more clean and undertandable than have a giant loop with a lot of variables doing almost the same thing.</p>
+<h1 id="code">Code</h1>
+<pre class=" language-cpp"><code class="prism  language-cpp"><span class="token macro property">#<span class="token directive keyword">define</span> MIN_DOMINO_VALUE 1</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> MAX_DOMINO_VALUE 6</span>
+
+<span class="token keyword">class</span>  <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+	<span class="token keyword">bool</span>  <span class="token function">numberHasValidQuantityOfAppearences</span><span class="token punctuation">(</span>
+		<span class="token keyword">const</span>  <span class="token keyword">int</span>  number<span class="token punctuation">,</span>
+		<span class="token keyword">const</span>  vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span>  priority<span class="token punctuation">,</span>
+		<span class="token keyword">const</span>  vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span>  swapping<span class="token punctuation">,</span>
+		<span class="token keyword">int</span><span class="token operator">&amp;</span>  appearencesInSwapping
+	<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+		<span class="token keyword">int</span> appearencesPrioritized <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+		appearencesInSwapping <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+		<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> priority<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>priority<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> number<span class="token punctuation">)</span> appearencesPrioritized<span class="token operator">++</span><span class="token punctuation">;</span>
+			<span class="token keyword">else</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>swapping<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> number<span class="token punctuation">)</span> appearencesInSwapping<span class="token operator">++</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+
+		<span class="token keyword">return</span> appearencesPrioritized <span class="token operator">+</span> appearencesInSwapping <span class="token operator">==</span> priority<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">int</span>  <span class="token function">minDominoRotations</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span>  tops<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span>  bottoms<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">const</span>  size_t size <span class="token operator">=</span> tops<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">int</span> minRotations <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+		<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> number <span class="token operator">=</span> MIN_DOMINO_VALUE<span class="token punctuation">;</span> number <span class="token operator">&lt;=</span> MAX_DOMINO_VALUE<span class="token punctuation">;</span> number<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">int</span> qtdRotations<span class="token punctuation">;</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">numberHasValidQuantityOfAppearences</span><span class="token punctuation">(</span>number<span class="token punctuation">,</span> tops<span class="token punctuation">,</span> bottoms<span class="token punctuation">,</span> qtdRotations<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				minRotations <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>qtdRotations<span class="token punctuation">,</span> minRotations<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">numberHasValidQuantityOfAppearences</span><span class="token punctuation">(</span>number<span class="token punctuation">,</span> bottoms<span class="token punctuation">,</span> tops<span class="token punctuation">,</span> qtdRotations<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				minRotations <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>qtdRotations<span class="token punctuation">,</span> minRotations<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+
+		<span class="token keyword">return</span> minRotations <span class="token operator">&gt;</span> size <span class="token operator">?</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">:</span> minRotations<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</div>
+</body>
+
+</html>
